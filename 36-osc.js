@@ -37,11 +37,6 @@ module.exports = function(RED) {
             node.send(msg);
         });
 
-        server.on('listening', function () {
-            var address = server.address();
-            node.log('OSC listener at ' + address.address + ":" + address.port);
-        });
-
         node.on("close", function() {
             try {
                 server.kill();
