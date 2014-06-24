@@ -1,0 +1,25 @@
+{
+    "name"         : "node-red-osc",
+    "version"      : "0.0.1",
+    "description"  : "Open Sound Control (OSC) support for Node-RED",
+    "homepage"     : "http://github.com/njh/node-red-osc",
+    "license"      : "Apache",
+    "repository"   : {
+        "type": "git",
+        "url": "https://github.com/njh/node-red-osc.git"
+    },
+    "contributors": [ 
+        {"name": "Nicholas Humfrey"},
+    ],
+    "keywords": [
+        "OSC", "Open Sound Control", "Node-RED"
+    ],
+    "dependencies": {
+        "node-osc": "0.2.1"
+    },
+    "node-red": {
+        "nodes": {
+            "osc": "nodes/osc/osc.js"
+        }
+    }
+}
