@@ -9,7 +9,7 @@
         "url": "https://github.com/njh/node-red-osc.git"
     },
     "contributors": [ 
-        {"name": "Nicholas Humfrey"},
+        {"name": "Nicholas Humfrey"}
     ],
     "keywords": [
         "OSC", "Open Sound Control", "Node-RED"
