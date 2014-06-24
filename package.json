@@ -1,6 +1,6 @@
 {
     "name"         : "node-red-osc",
-    "version"      : "0.0.1",
+    "version"      : "0.0.2",
     "description"  : "Open Sound Control (OSC) support for Node-RED",
     "homepage"     : "http://github.com/njh/node-red-osc",
     "license"      : "Apache",
