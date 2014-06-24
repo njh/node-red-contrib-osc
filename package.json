@@ -19,7 +19,7 @@
     },
     "node-red": {
         "nodes": {
-            "osc": "nodes/osc/osc.js"
+            "osc": "osc.js"
         }
     }
 }
