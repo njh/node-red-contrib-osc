@@ -76,7 +76,13 @@ module.exports = function(RED) {
                 if (msg.payload === null || msg.payload.length === 0) {
                     node.client.send(path);
                 } else {
-                    node.client.send(path, msg.payload);
+                    if(Array.isArray(msg.payload)) {
+                        var args = msg.payload.splice(0, msg.payload.length);
+                        args.unshift(path);
+                        node.client.send.apply(node.client, args);
+                    } else {
+                        node.client.send(path, msg.payload);
+                    }
                 }
             }
         });
