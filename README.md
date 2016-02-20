@@ -1,11 +1,11 @@
-node-red-osc
-============
+node-red-contrib-osc
+====================
 
-The *node-red-osc* module adds support to [Node-RED](http://nodered.org/) for sending and receiving OSC ([Open Sound Control](http://opensoundcontrol.org/introduction-osc)) messages to other systems.
+The *node-red-contrib-osc* module adds support to [Node-RED](http://nodered.org/) for sending and receiving OSC ([Open Sound Control](http://opensoundcontrol.org/introduction-osc)) messages to other systems.
 
 This then makes it easy to bridge between other protocols, for example HTTP or MQTT.
 
-![screenshot](https://github.com/njh/node-red-osc/raw/master/screenshot.png)
+![screenshot](https://github.com/njh/node-red-contrib-osc/raw/master/screenshot.png)
 
 
 Installation
@@ -13,7 +13,7 @@ Installation
 
 Change to your node-red installation directory and then run:
 
-    npm install node-red-osc
+    npm install node-red-contrib-osc
     
 You will then be able to see the two new OSC node types added to Node-RED's pallet on the left.
 
