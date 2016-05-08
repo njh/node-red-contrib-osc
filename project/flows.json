@@ -11,13 +11,12 @@
         "name": "",
         "path": "",
         "slip": false,
-        "metadata": true,
+        "metadata": false,
         "x": 366.5,
         "y": 231,
         "wires": [
             [
-                "a97b7b29.568488",
-                "765f2fc4.89a0d"
+                "a97b7b29.568488"
             ]
         ]
     },

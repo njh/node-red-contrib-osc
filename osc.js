@@ -36,15 +36,25 @@ module.exports = function(RED) {
                             node.warn('Decoding SLIP message');
                             msg.payload = m;
                             msg.raw = osc.readPacket(msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
-                            msg.topic = msg.raw.address;
-                            msg.payload = msg.raw.args;
+                            if (msg.raw.packets) {
+                                msg.topic = "bundle";
+                                msg.payload = msg.raw.packets;
+                            } else {
+                                msg.topic = msg.raw.address;
+                                msg.payload = msg.raw.args;
+                            }
                         }
                     });
                     decoder.decode(msg.payload);
                 } else {
                     msg.raw = osc.readPacket(msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
-                    msg.topic = msg.raw.address;
-                    msg.payload = msg.raw.args;
+                    if (msg.raw.packets) {
+                        msg.topic = "bundle";
+                        msg.payload = msg.raw.packets;
+                    } else {
+                        msg.topic = msg.raw.address;
+                        msg.payload = msg.raw.args;
+                    }
                 }
 
 
