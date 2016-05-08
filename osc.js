@@ -17,20 +17,36 @@
 module.exports = function(RED) {
     "use strict";
     var osc = require('osc');
+    var slip = require('slip');
 
     function OSC(n) {
         RED.nodes.createNode(this,n);
         var node = this;
         node.path = n.path;
-        node.mode = n.mode;
-
+        node.slip = n.slip;
+        node.warn(node.slip);
         node.on("input", function(msg) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload))
             {
-                msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
-                msg.topic = msg.raw.address;
-                msg.payload = msg.raw.args;
+                if (node.slip) {
+                    var decoder = new slip.Decoder({
+                        onMessage: function (m) {
+                            node.warn('Decoding SLIP message');
+                            msg.payload = m;
+                            msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
+                            msg.topic = msg.raw.address;
+                            msg.payload = msg.raw.args;
+                        }
+                    });
+                    decoder.decode(msg.payload);
+                } else {
+                    msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
+                    msg.topic = msg.raw.address;
+                    msg.payload = msg.raw.args;
+                }
+
+
             // When we get an Object
             } else {
                 var path;
@@ -47,7 +63,9 @@ module.exports = function(RED) {
                 }
                 var packet = {address: path, args: msg.payload};
                 msg.payload = new Buffer(osc.writePacket(packet));
-
+                if (node.slip) {
+                    msg.payload = new Buffer(slip.encode(msg.payload));
+                }
             }
             node.send(msg);
         });

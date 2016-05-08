@@ -20,6 +20,11 @@
         <input type="text" id="node-input-path" placeholder="OSC Path">
     </div>
     <div class="form-row">
+        <label><i class="fa fa-arrow-right"></i> SLIP</span></label>
+        <input type="checkbox" id="node-input-slip" style="display: inline-block; width: auto; vertical-align: top;">
+        Check this for TCP and Serial streams
+    </div>
+    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
@@ -38,7 +43,8 @@
         color:"#0099FF",
         defaults: {
             name: {value:""},
-            path: {value:""}
+            path: {value:""},
+            slip: {value: false}
         },
         inputs:1,
         outputs:1,
