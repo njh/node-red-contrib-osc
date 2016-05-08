@@ -24,7 +24,6 @@ module.exports = function(RED) {
         node.path = n.path;
 
         node.on("input", function(msg) {
-
             if (Buffer.isBuffer(msg.payload))
             {
                 msg.raw = osc.readPacket(msg.payload, {"metadata": false});
@@ -34,6 +33,22 @@ module.exports = function(RED) {
                 } else {
                     msg.payload = msg.raw.args;
                 }
+            } else {
+                var path;
+                if (node.path === "") {
+                    if (msg.topic === "") {
+                        node.error("OSC Path is empty, please provide a path using msg.topic");
+                        return;
+                    } else {
+                        path = msg.topic;
+                    }
+                } else {
+                    path = node.path;
+                    msg.topic = path;
+                }
+
+                var packet = {address: path, args: msg.payload};
+                msg.payload = new Buffer(osc.writePacket(packet));
             }
             node.send(msg);
         });

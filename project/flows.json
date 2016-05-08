@@ -14,7 +14,8 @@
         "y": 231,
         "wires": [
             [
-                "32ce0b1a.cd31f4"
+                "32ce0b1a.cd31f4",
+                "3f7a422c.c085be"
             ]
         ]
     },
@@ -53,7 +54,7 @@
         "id": "b406f57c.4bf908",
         "type": "inject",
         "z": "1735cab2.e8ca35",
-        "name": "",
+        "name": "no topic",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -61,7 +62,61 @@
         "crontab": "",
         "once": false,
         "x": 142.5,
-        "y": 94,
+        "y": 136,
+        "wires": [
+            [
+                "9d5476d8.62ab88"
+            ]
+        ]
+    },
+    {
+        "id": "3f7a422c.c085be",
+        "type": "udp out",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "addr": "127.0.0.1",
+        "iface": "",
+        "port": "3333",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 617.5,
+        "y": 294,
+        "wires": []
+    },
+    {
+        "id": "e1cd080a.1e32f8",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "timestamp with topic",
+        "topic": "/timestamp",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 184,
+        "y": 91,
+        "wires": [
+            [
+                "9d5476d8.62ab88"
+            ]
+        ]
+    },
+    {
+        "id": "e14f7bd3.1eb088",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "timestamp with invlidtopic",
+        "topic": "22",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 191,
+        "y": 44,
         "wires": [
             [
                 "9d5476d8.62ab88"
