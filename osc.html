@@ -25,6 +25,11 @@
         Check this for TCP and Serial streams
     </div>
     <div class="form-row">
+        <label><i class="fa fa-arrow-list"></i> Metadata</span></label>
+        <input type="checkbox" id="node-input-metadata" style="display: inline-block; width: auto; vertical-align: top;">
+        Check this to add types to incoming messages
+    </div>
+    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
@@ -37,12 +42,13 @@
     Node-RED&#39;s built-in input and output objects like udp, tcp, websocket or serial.</p>
     <p>If the node receives a <code>Buffer</code> as <code>msg.payload</code> it will convert
     it and place the OSC address in <code>msg.topic</code> and the received arguments
-    in <code>msg.payload</code</p>
+    in <code>msg.payload.</code> The raw message can be found in <code>msg.raw.</code></p>
     <p>If the node receives a valid OSC path as <code>msg.topic</code> and data as
     <code>msg.payload</code> it will convert the data to a <code>Buffer</code> that can be
-    sent via tcp, udp, websocket or serial.</p>
+    sent via tcp, udp, websocket or serial. You can also override <code>msg.topic</code>
+    by setting the path in the node&#39;s properties.</p>
     <p>In the case of TCP and Serial streams, you may need to encode the data using SLIP.
-    To do so, check the SLIP checkox within the node&#39;s properties.</p>
+    To do so, check the SLIP checkbox within the node&#39;s properties.</p>
 </script>
 
 <script type="text/javascript">
@@ -52,7 +58,8 @@
         defaults: {
             name: {value:""},
             path: {value:""},
-            slip: {value: false}
+            slip: {value: false},
+            metadata: {value: false}
         },
         inputs:1,
         outputs:1,

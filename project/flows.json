@@ -10,12 +10,14 @@
         "z": "1735cab2.e8ca35",
         "name": "",
         "path": "",
-        "slip": true,
+        "slip": false,
+        "metadata": true,
         "x": 366.5,
         "y": 231,
         "wires": [
             [
-                "a97b7b29.568488"
+                "a97b7b29.568488",
+                "765f2fc4.89a0d"
             ]
         ]
     },
@@ -248,5 +250,21 @@
                 "32ce0b1a.cd31f4"
             ]
         ]
+    },
+    {
+        "id": "765f2fc4.89a0d",
+        "type": "udp out",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "addr": "localhost",
+        "iface": "",
+        "port": "3333",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 554.5,
+        "y": 273,
+        "wires": []
     }
 ]

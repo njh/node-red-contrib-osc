@@ -24,6 +24,7 @@ module.exports = function(RED) {
         var node = this;
         node.path = n.path;
         node.slip = n.slip;
+        node.metadata = n.metadata;
 
         node.on("input", function(msg) {
             // When we get a Buffer
@@ -34,14 +35,14 @@ module.exports = function(RED) {
                         onMessage: function (m) {
                             node.warn('Decoding SLIP message');
                             msg.payload = m;
-                            msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
+                            msg.raw = osc.readPacket(msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
                             msg.topic = msg.raw.address;
                             msg.payload = msg.raw.args;
                         }
                     });
                     decoder.decode(msg.payload);
                 } else {
-                    msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
+                    msg.raw = osc.readPacket(msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
                     msg.topic = msg.raw.address;
                     msg.payload = msg.raw.args;
                 }
