@@ -22,17 +22,25 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         var node = this;
         node.path = n.path;
+        node.mode = n.mode;
 
         node.on("input", function(msg) {
+            // When we get a Buffer
             if (Buffer.isBuffer(msg.payload))
             {
-                msg.raw = osc.readPacket(msg.payload, {"metadata": false});
-                msg.topic = msg.raw.address;
-                if (msg.raw.args.length == 1) {
-                    msg.payload = msg.raw.args[0];
-                } else {
-                    msg.payload = msg.raw.args;
+                if (node.mode == "buffer") {
+                    // Do nothing
                 }
+                else {
+                    msg.raw = osc.readPacket(msg.payload, {"metadata": false});
+                    msg.topic = msg.raw.address;
+                    if (msg.raw.args.length == 1) {
+                        msg.payload = msg.raw.args[0];
+                    } else {
+                        msg.payload = msg.raw.args;
+                    }
+                }
+            // When we get an Object
             } else {
                 var path;
                 if (node.path === "") {
@@ -47,8 +55,12 @@ module.exports = function(RED) {
                     msg.topic = path;
                 }
 
-                var packet = {address: path, args: msg.payload};
-                msg.payload = new Buffer(osc.writePacket(packet));
+                if (node.mode == 'object') {
+                    // Do nothing
+                } else {
+                    var packet = {address: path, args: msg.payload};
+                    msg.payload = new Buffer(osc.writePacket(packet));
+                }
             }
             node.send(msg);
         });

@@ -6,7 +6,7 @@ const exec = require('child_process').execSync;
 var port = parseInt(process.argv[2]);
 var command;
 
-const npm_install = exec('npm install -f');
+const npm_install = exec('npm install -f ../');
 
 if (port) {
   command = spawn('node', ['node_modules/node-red/red.js', '-v', '-p', port, '-userDir', '.']);

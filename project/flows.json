@@ -10,12 +10,14 @@
         "z": "1735cab2.e8ca35",
         "name": "",
         "path": "",
+        "mode": "object",
         "x": 366.5,
         "y": 231,
         "wires": [
             [
                 "32ce0b1a.cd31f4",
-                "3f7a422c.c085be"
+                "3f7a422c.c085be",
+                "6f4751e2.90b8b"
             ]
         ]
     },
@@ -46,8 +48,8 @@
         "active": true,
         "console": "false",
         "complete": "payload",
-        "x": 588.5,
-        "y": 215,
+        "x": 584.2143020629883,
+        "y": 154.99999618530273,
         "wires": []
     },
     {
@@ -122,5 +124,17 @@
                 "9d5476d8.62ab88"
             ]
         ]
+    },
+    {
+        "id": "6f4751e2.90b8b",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 565.7142944335938,
+        "y": 207.1428680419922,
+        "wires": []
     }
 ]
