@@ -33,8 +33,7 @@
         "y": 220,
         "wires": [
             [
-                "9d5476d8.62ab88",
-                "c52991da.3ad67"
+                "9d5476d8.62ab88"
             ]
         ]
     },
@@ -51,15 +50,22 @@
         "wires": []
     },
     {
-        "id": "c52991da.3ad67",
-        "type": "debug",
+        "id": "b406f57c.4bf908",
+        "type": "inject",
         "z": "1735cab2.e8ca35",
         "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 355.5,
-        "y": 404,
-        "wires": []
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 142.5,
+        "y": 94,
+        "wires": [
+            [
+                "9d5476d8.62ab88"
+            ]
+        ]
     }
 ]

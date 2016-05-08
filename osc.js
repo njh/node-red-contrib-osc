@@ -24,7 +24,17 @@ module.exports = function(RED) {
         node.path = n.path;
 
         node.on("input", function(msg) {
-            msg.payload = osc.readPacket(msg.payload, {"metadata": false});
+
+            if (Buffer.isBuffer(msg.payload))
+            {
+                msg.raw = osc.readPacket(msg.payload, {"metadata": false});
+                msg.topic = msg.raw.address;
+                if (msg.raw.args.length == 1) {
+                    msg.payload = msg.raw.args[0];
+                } else {
+                    msg.payload = msg.raw.args;
+                }
+            }
             node.send(msg);
         });
 
