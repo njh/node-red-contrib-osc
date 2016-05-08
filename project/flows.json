@@ -16,7 +16,6 @@
         "wires": [
             [
                 "32ce0b1a.cd31f4",
-                "3f7a422c.c085be",
                 "6f4751e2.90b8b"
             ]
         ]
@@ -70,22 +69,6 @@
                 "9d5476d8.62ab88"
             ]
         ]
-    },
-    {
-        "id": "3f7a422c.c085be",
-        "type": "udp out",
-        "z": "1735cab2.e8ca35",
-        "name": "",
-        "addr": "127.0.0.1",
-        "iface": "",
-        "port": "3333",
-        "ipv": "udp4",
-        "outport": "",
-        "base64": false,
-        "multicast": "false",
-        "x": 620.3571338653564,
-        "y": 271.1428565979004,
-        "wires": []
     },
     {
         "id": "e1cd080a.1e32f8",
