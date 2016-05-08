@@ -32,9 +32,17 @@
 </script>
 
 <script type="text/x-red" data-help-name="osc">
-    <p>Send messages using the Open Sound Control (OSC) protocol.</p>
-    <p>This node sends <b>msg.payload</b> to the designated OSC host and port.</p>
-    <p>On some systems you may need to be root to use ports below 1024 and/or broadcast.</p>
+    <p>Decode and encode messages using the Open Sound Control (OSC) protocol.</p>
+    <p>The OSC node is transport independant meaning you will need to use it with
+    Node-RED&#39;s built-in input and output objects like udp, tcp, websocket or serial.</p>
+    <p>If the node receives a <code>Buffer</code> as <code>msg.payload</code> it will convert
+    it and place the OSC address in <code>msg.topic</code> and the received arguments
+    in <code>msg.payload</code</p>
+    <p>If the node receives a valid OSC path as <code>msg.topic</code> and data as
+    <code>msg.payload</code> it will convert the data to a <code>Buffer</code> that can be
+    sent via tcp, udp, websocket or serial.</p>
+    <p>In the case of TCP and Serial streams, you may need to encode the data using SLIP.
+    To do so, check the SLIP checkox within the node&#39;s properties.</p>
 </script>
 
 <script type="text/javascript">

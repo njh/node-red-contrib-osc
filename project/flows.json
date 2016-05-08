@@ -30,8 +30,8 @@
         "multicast": "false",
         "group": "",
         "datatype": "buffer",
-        "x": 143.5,
-        "y": 220,
+        "x": 128.5,
+        "y": 254,
         "wires": [
             [
                 "9d5476d8.62ab88"
@@ -226,8 +226,8 @@
         "multicast": "false",
         "group": "",
         "datatype": "buffer",
-        "x": 149,
-        "y": 300,
+        "x": 136,
+        "y": 349,
         "wires": [
             [
                 "4bae6584.b4519c"
