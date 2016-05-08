@@ -1,0 +1,65 @@
+[
+    {
+        "type": "tab",
+        "id": "1735cab2.e8ca35",
+        "label": "Flow 1"
+    },
+    {
+        "id": "9d5476d8.62ab88",
+        "type": "osc",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "path": "",
+        "x": 366.5,
+        "y": 231,
+        "wires": [
+            [
+                "32ce0b1a.cd31f4"
+            ]
+        ]
+    },
+    {
+        "id": "326e710.fcd919",
+        "type": "udp in",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "iface": "",
+        "port": "3000",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 143.5,
+        "y": 220,
+        "wires": [
+            [
+                "9d5476d8.62ab88",
+                "c52991da.3ad67"
+            ]
+        ]
+    },
+    {
+        "id": "32ce0b1a.cd31f4",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 588.5,
+        "y": 215,
+        "wires": []
+    },
+    {
+        "id": "c52991da.3ad67",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 355.5,
+        "y": 404,
+        "wires": []
+    }
+]

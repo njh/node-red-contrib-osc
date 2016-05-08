@@ -16,76 +16,21 @@
 
 module.exports = function(RED) {
     "use strict";
-    var osc = require('node-osc');
+    var osc = require('osc');
 
-    // The Input Node
-    function OSCin(n) {
+    function OSC(n) {
         RED.nodes.createNode(this,n);
-        this.addr = n.addr;
-        this.port = n.port;
         var node = this;
+        node.path = n.path;
 
-        var server = new osc.Server(this.port, this.addr);
-        server.on('message', function (message, remote) {
-            var topic = message.shift();
-            if (message.length == 0) {
-                message = "";
-            } else if (message.length == 1) {
-                message = message[0];
-            }
-            var msg = { topic:topic, payload:message, ip:remote.address, port:remote.port };
+        node.on("input", function(msg) {
+            msg.payload = osc.readPacket(msg.payload, {"metadata": false});
             node.send(msg);
         });
 
         node.on("close", function() {
-            try {
-                server.kill();
-                node.log('OSC listener stopped');
-            } catch (err) {
-                node.error(err);
-            }
+            //Tidy up things here
         });
     }
-    RED.nodes.registerType("osc in", OSCin);
-
-
-    // The Output Node
-    function OSCout(n) {
-        RED.nodes.createNode(this,n);
-
-        var node = this;
-        node.addr = n.addr;
-        node.port = n.port;
-        node.path = n.path;
-
-        if (node.addr == "") {
-            node.warn("OSC: ip address not set");
-        } else if (node.port == 0) {
-            node.warn("OSC: port not set");
-        } else if (isNaN(node.port) || (node.port < 1) || (node.port > 65535)) {
-            node.warn("OSC: port number not valid");
-        } else {
-            node.client = new osc.Client(node.addr, node.port);
-        }
-
-        node.on("input", function(msg) {
-            var path = node.path || msg.topic || ""
-            if (path == "") {
-                node.warn("OSC: path and topic not set");
-            } else {
-                if (msg.payload === null || msg.payload.length === 0) {
-                    node.client.send(path);
-                } else {
-                    if(Array.isArray(msg.payload)) {
-                        var args = msg.payload.splice(0, msg.payload.length);
-                        args.unshift(path);
-                        node.client.send.apply(node.client, args);
-                    } else {
-                        node.client.send(path, msg.payload);
-                    }
-                }
-            }
-        });
-    }
-    RED.nodes.registerType("osc out", OSCout);
-}
+    RED.nodes.registerType("osc", OSC);
+};
