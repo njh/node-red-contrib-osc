@@ -32,13 +32,9 @@ module.exports = function(RED) {
                     // Do nothing
                 }
                 else {
-                    msg.raw = osc.readPacket(msg.payload, {"metadata": false});
+                    msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
                     msg.topic = msg.raw.address;
-                    if (msg.raw.args.length == 1) {
-                        msg.payload = msg.raw.args[0];
-                    } else {
-                        msg.payload = msg.raw.args;
-                    }
+                    msg.payload = msg.raw.args;
                 }
             // When we get an Object
             } else {
