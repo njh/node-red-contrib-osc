@@ -24,7 +24,7 @@ module.exports = function(RED) {
         var node = this;
         node.path = n.path;
         node.slip = n.slip;
-        node.warn(node.slip);
+
         node.on("input", function(msg) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload))
