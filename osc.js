@@ -28,14 +28,9 @@ module.exports = function(RED) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload))
             {
-                if (node.mode == "buffer") {
-                    // Do nothing
-                }
-                else {
-                    msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
-                    msg.topic = msg.raw.address;
-                    msg.payload = msg.raw.args;
-                }
+                msg.raw = osc.readPacket(msg.payload, {"metadata": false, "unpackSingleArgs": true});
+                msg.topic = msg.raw.address;
+                msg.payload = msg.raw.args;
             // When we get an Object
             } else {
                 var path;
@@ -50,13 +45,9 @@ module.exports = function(RED) {
                     path = node.path;
                     msg.topic = path;
                 }
+                var packet = {address: path, args: msg.payload};
+                msg.payload = new Buffer(osc.writePacket(packet));
 
-                if (node.mode == 'object') {
-                    // Do nothing
-                } else {
-                    var packet = {address: path, args: msg.payload};
-                    msg.payload = new Buffer(osc.writePacket(packet));
-                }
             }
             node.send(msg);
         });
