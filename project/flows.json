@@ -160,6 +160,7 @@
         "name": "",
         "path": "",
         "slip": true,
+        "metadata": false,
         "x": 371.5,
         "y": 449,
         "wires": [
@@ -196,6 +197,7 @@
         "name": "",
         "path": "",
         "slip": true,
+        "metadata": false,
         "x": 350,
         "y": 538,
         "wires": [
