@@ -214,5 +214,39 @@
         "x": 513.5,
         "y": 540,
         "wires": []
+    },
+    {
+        "id": "a2a463d.f5d5ba",
+        "type": "udp in",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "iface": "",
+        "port": "8000",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 149,
+        "y": 300,
+        "wires": [
+            [
+                "4bae6584.b4519c"
+            ]
+        ]
+    },
+    {
+        "id": "4bae6584.b4519c",
+        "type": "osc",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "path": "",
+        "slip": false,
+        "x": 310.5,
+        "y": 301,
+        "wires": [
+            [
+                "32ce0b1a.cd31f4"
+            ]
+        ]
     }
 ]
