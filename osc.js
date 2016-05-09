@@ -45,7 +45,6 @@ module.exports = function(RED) {
                 if (node.slip) {
                     var decoder = new slip.Decoder({
                         onMessage: function (m) {
-                            node.warn('Decoding SLIP message');
                             msg.payload = m;
                             decode();
                         }
