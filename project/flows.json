@@ -5,6 +5,20 @@
         "label": "Flow 1"
     },
     {
+        "id": "49025b8.fb6fda4",
+        "type": "serial-port",
+        "z": "1735cab2.e8ca35",
+        "serialport": "/dev/cu.usbmodem271161",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
         "id": "9d5476d8.62ab88",
         "type": "osc",
         "z": "1735cab2.e8ca35",
@@ -12,11 +26,12 @@
         "path": "",
         "slip": false,
         "metadata": false,
-        "x": 366.5,
-        "y": 231,
+        "x": 419.5,
+        "y": 91,
         "wires": [
             [
-                "a97b7b29.568488"
+                "a97b7b29.568488",
+                "e4ea6330.1b15a"
             ]
         ]
     },
@@ -31,8 +46,8 @@
         "multicast": "false",
         "group": "",
         "datatype": "buffer",
-        "x": 128.5,
-        "y": 254,
+        "x": 120,
+        "y": 200,
         "wires": [
             [
                 "9d5476d8.62ab88"
@@ -62,8 +77,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 142.5,
-        "y": 136,
+        "x": 140,
+        "y": 160,
         "wires": [
             [
                 "9d5476d8.62ab88"
@@ -81,8 +96,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 184,
-        "y": 91,
+        "x": 180,
+        "y": 120,
         "wires": [
             [
                 "9d5476d8.62ab88"
@@ -100,8 +115,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 191,
-        "y": 44,
+        "x": 190,
+        "y": 80,
         "wires": [
             [
                 "9d5476d8.62ab88"
@@ -116,8 +131,8 @@
         "active": true,
         "console": "false",
         "complete": "payload",
-        "x": 517,
-        "y": 215,
+        "x": 550,
+        "y": 100,
         "wires": []
     },
     {
@@ -213,8 +228,8 @@
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "false",
-        "x": 513.5,
+        "complete": "true",
+        "x": 493.5,
         "y": 540,
         "wires": []
     },
@@ -267,5 +282,122 @@
         "x": 554.5,
         "y": 273,
         "wires": []
+    },
+    {
+        "id": "4d9be2dc.b2641c",
+        "type": "serial out",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "serial": "49025b8.fb6fda4",
+        "x": 769.3750076293945,
+        "y": 650.0000095367432,
+        "wires": []
+    },
+    {
+        "id": "38c0feb5.c73f02",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 640,
+        "wires": [
+            [
+                "95347c84.6acb8"
+            ]
+        ]
+    },
+    {
+        "id": "8d5ae88f.72a518",
+        "type": "osc",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "path": "",
+        "slip": true,
+        "metadata": false,
+        "x": 435.625,
+        "y": 640,
+        "wires": [
+            [
+                "4d9be2dc.b2641c"
+            ]
+        ]
+    },
+    {
+        "id": "6ee7c0d3.91184",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "95347c84.6acb8"
+            ]
+        ]
+    },
+    {
+        "id": "2ec697d1.d13968",
+        "type": "comment",
+        "z": "1735cab2.e8ca35",
+        "name": "Input test",
+        "info": "",
+        "x": 120,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "e4ea6330.1b15a",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "Out1 Full",
+        "active": false,
+        "console": "false",
+        "complete": "true",
+        "x": 560,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "95347c84.6acb8",
+        "type": "template",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\n    \"timeTag\": 1,\n    \"packets\": [\n        {\n            \"address\": \"/d/13\",\n            \"args\": {{payload}}\n        }\n    ]\n}",
+        "x": 250,
+        "y": 800,
+        "wires": [
+            [
+                "43bca952.bc4358"
+            ]
+        ]
+    },
+    {
+        "id": "43bca952.bc4358",
+        "type": "json",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "x": 390,
+        "y": 800,
+        "wires": [
+            [
+                "8d5ae88f.72a518"
+            ]
+        ]
     }
 ]

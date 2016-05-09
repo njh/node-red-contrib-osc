@@ -58,7 +58,7 @@ module.exports = function(RED) {
             } else {
                 var path;
                 if (node.path === "") {
-                    if (msg.topic === "") {
+                    if (msg.topic === "" && !msg.payload.packets) {
                         node.error("OSC Path is empty, please provide a path using msg.topic");
                         return;
                     } else {
@@ -68,7 +68,16 @@ module.exports = function(RED) {
                     path = node.path;
                     msg.topic = path;
                 }
-                var packet = {address: path, args: msg.payload};
+
+                var packet;
+                // If we receive a bundle
+                if (msg.payload.packets) {
+                    packet = msg.payload;
+                    packet.timeTag = osc.timeTag(msg.payload.timeTag);
+                } else {
+                    packet = {address: path, args: msg.payload};
+                }
+
                 msg.payload = new Buffer(osc.writePacket(packet));
                 if (node.slip) {
                     msg.payload = new Buffer(slip.encode(msg.payload));
