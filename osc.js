@@ -49,12 +49,11 @@ module.exports = function(RED) {
         };
 
         node.on("input", function(msg) {
-            // We buffer the msg so the slipDecoder callback can access it
-            node.currentMessage = msg;
-
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload)) {
                 if (node.slip) {
+                    // We buffer the msg so the slipDecoder callback can access it
+                    node.currentMessage = msg;
                     node.slipDecoder.decode(msg.payload);
                     return;
                 } else {
