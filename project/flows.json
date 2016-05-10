@@ -15,6 +15,11 @@
         "label": "SerialBundle"
     },
     {
+        "type": "tab",
+        "id": "1fee555b.e011ab",
+        "label": "TCP"
+    },
+    {
         "id": "49025b8.fb6fda4",
         "type": "serial-port",
         "z": "1735cab2.e8ca35",
@@ -32,7 +37,7 @@
         "id": "8c973369.7368d",
         "type": "serial-port",
         "z": "b3ca7c94.4c358",
-        "serialport": "/dev/cu.usbmodem271161",
+        "serialport": "/dev/cu.usbmodem1488111",
         "serialbaud": "9600",
         "databits": "8",
         "parity": "none",
@@ -526,7 +531,7 @@
         "z": "b3ca7c94.4c358",
         "name": "",
         "serial": "8c973369.7368d",
-        "x": 130,
+        "x": 140,
         "y": 260,
         "wires": [
             [
@@ -568,7 +573,7 @@
         "type": "debug",
         "z": "b3ca7c94.4c358",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "raw",
         "x": 480,
@@ -584,5 +589,86 @@
         "x": 210,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "c149a28b.3eb66",
+        "type": "tcp out",
+        "z": "1fee555b.e011ab",
+        "host": "localhost",
+        "port": "5555",
+        "beserver": "client",
+        "base64": false,
+        "end": true,
+        "name": "",
+        "x": 610,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "cfc3e671.303c18",
+        "type": "inject",
+        "z": "1fee555b.e011ab",
+        "name": "",
+        "topic": "/timestamp",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "e36ddb5c.1c9228"
+            ]
+        ]
+    },
+    {
+        "id": "e36ddb5c.1c9228",
+        "type": "osc",
+        "z": "1fee555b.e011ab",
+        "name": "",
+        "path": "",
+        "slip": true,
+        "metadata": false,
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "c149a28b.3eb66",
+                "bbc6ca62.443938"
+            ]
+        ]
+    },
+    {
+        "id": "bbc6ca62.443938",
+        "type": "debug",
+        "z": "1fee555b.e011ab",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 560,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "66936d1d.996c94",
+        "type": "inject",
+        "z": "1fee555b.e011ab",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 220,
+        "y": 260,
+        "wires": [
+            [
+                "c149a28b.3eb66"
+            ]
+        ]
     }
 ]

@@ -26,32 +26,39 @@ module.exports = function(RED) {
         node.slip = n.slip;
         node.metadata = n.metadata;
 
-        node.on("input", function(msg) {
+        node.currentMessage = null;
 
-            function decode() {
-                msg.raw = osc.readPacket(msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
-                if (msg.raw.packets) {
-                    msg.topic = "bundle";
-                    msg.payload = msg.raw.packets;
-                } else {
-                    msg.topic = msg.raw.address;
-                    msg.payload = msg.raw.args;
-                }
+        node.slipDecoder = new slip.Decoder({
+            onMessage: function (m) {
+                node.currentMessage.payload = m;
+                var decodedMsg = node.decode(node.currentMessage);
+                node.send(decodedMsg);
             }
+        });
+
+        node.decode = function(_msg) {
+            _msg.raw = osc.readPacket(_msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
+            if (_msg.raw.packets) {
+                _msg.topic = "bundle";
+                _msg.payload = _msg.raw.packets;
+            } else {
+                _msg.topic = _msg.raw.address;
+                _msg.payload = _msg.raw.args;
+            }
+            return _msg;
+        };
+
+        node.on("input", function(msg) {
+            // We buffer the msg so the slipDecoder callback can access it
+            node.currentMessage = msg;
 
             // When we get a Buffer
-            if (Buffer.isBuffer(msg.payload))
-            {
+            if (Buffer.isBuffer(msg.payload)) {
                 if (node.slip) {
-                    var decoder = new slip.Decoder({
-                        onMessage: function (m) {
-                            msg.payload = m;
-                            decode();
-                        }
-                    });
-                    decoder.decode(msg.payload);
+                    node.slipDecoder.decode(msg.payload);
+                    return;
                 } else {
-                    decode();
+                    msg = node.decode(msg);
                 }
             // When we get an Object
             } else {
