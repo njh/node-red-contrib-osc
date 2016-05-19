@@ -81,7 +81,6 @@ module.exports = function(RED) {
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
                     if (msg.payload === "" || msg.payload === null) {
-                        node.warn('sending empty packet');
                         packet = {address: path, args: {type: 'N', value: null}};
                     } else {
                         packet = {address: path, args: msg.payload};
