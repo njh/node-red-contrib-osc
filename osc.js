@@ -80,7 +80,7 @@ module.exports = function(RED) {
                     packet = msg.payload;
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
-                    if (msg.payload === "") {
+                    if (msg.payload === "" || msg.payload === null) {
                         node.warn('sending empty packet');
                         packet = {address: path, args: {type: 'N', value: null}};
                     } else {
