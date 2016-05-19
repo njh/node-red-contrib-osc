@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Nicholas Humfrey
+ * Copyright 2016 Nicholas Humfrey, Nathanaël Lécaudé
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,76 +16,84 @@
 
 module.exports = function(RED) {
     "use strict";
-    var osc = require('node-osc');
+    var osc = require('osc');
+    var slip = require('slip');
 
-    // The Input Node
-    function OSCin(n) {
+    function OSC(n) {
         RED.nodes.createNode(this,n);
-        this.addr = n.addr;
-        this.port = n.port;
         var node = this;
+        node.path = n.path;
+        node.slip = n.slip;
+        node.metadata = n.metadata;
 
-        var server = new osc.Server(this.port, this.addr);
-        server.on('message', function (message, remote) {
-            var topic = message.shift();
-            if (message.length == 0) {
-                message = "";
-            } else if (message.length == 1) {
-                message = message[0];
+        node.currentMessage = null;
+
+        node.slipDecoder = new slip.Decoder({
+            onMessage: function (m) {
+                node.currentMessage.payload = m;
+                var decodedMsg = node.decode(node.currentMessage);
+                node.send(decodedMsg);
             }
-            var msg = { topic:topic, payload:message, ip:remote.address, port:remote.port };
+        });
+
+        node.decode = function(_msg) {
+            _msg.raw = osc.readPacket(_msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
+            if (_msg.raw.packets) {
+                _msg.topic = "bundle";
+                _msg.payload = _msg.raw.packets;
+            } else {
+                _msg.topic = _msg.raw.address;
+                _msg.payload = _msg.raw.args;
+            }
+            return _msg;
+        };
+
+        node.on("input", function(msg) {
+            // When we get a Buffer
+            if (Buffer.isBuffer(msg.payload)) {
+                if (node.slip) {
+                    // We buffer the msg so the slipDecoder callback can access it
+                    node.currentMessage = msg;
+                    node.slipDecoder.decode(msg.payload);
+                    return;
+                } else {
+                    msg = node.decode(msg);
+                }
+            // When we get an Object
+            } else {
+                var path;
+                if (node.path === "") {
+                    if (msg.topic === "" && !msg.payload.packets) {
+                        node.error("OSC Path is empty, please provide a path using msg.topic");
+                        return;
+                    } else {
+                        path = msg.topic;
+                    }
+                } else {
+                    path = node.path;
+                    msg.topic = path;
+                }
+
+                var packet;
+                // If we receive a bundle
+                if (msg.payload.packets) {
+                    packet = msg.payload;
+                    packet.timeTag = osc.timeTag(msg.payload.timeTag);
+                } else {
+                    packet = {address: path, args: msg.payload};
+                }
+
+                msg.payload = new Buffer(osc.writePacket(packet));
+                if (node.slip) {
+                    msg.payload = new Buffer(slip.encode(msg.payload));
+                }
+            }
             node.send(msg);
         });
 
         node.on("close", function() {
-            try {
-                server.kill();
-                node.log('OSC listener stopped');
-            } catch (err) {
-                node.error(err);
-            }
+            //Tidy up things here
         });
     }
-    RED.nodes.registerType("osc in", OSCin);
-
-
-    // The Output Node
-    function OSCout(n) {
-        RED.nodes.createNode(this,n);
-
-        var node = this;
-        node.addr = n.addr;
-        node.port = n.port;
-        node.path = n.path;
-
-        if (node.addr == "") {
-            node.warn("OSC: ip address not set");
-        } else if (node.port == 0) {
-            node.warn("OSC: port not set");
-        } else if (isNaN(node.port) || (node.port < 1) || (node.port > 65535)) {
-            node.warn("OSC: port number not valid");
-        } else {
-            node.client = new osc.Client(node.addr, node.port);
-        }
-
-        node.on("input", function(msg) {
-            var path = node.path || msg.topic || ""
-            if (path == "") {
-                node.warn("OSC: path and topic not set");
-            } else {
-                if (msg.payload === null || msg.payload.length === 0) {
-                    node.client.send(path);
-                } else {
-                    if(Array.isArray(msg.payload)) {
-                        var args = msg.payload.splice(0, msg.payload.length);
-                        args.unshift(path);
-                        node.client.send.apply(node.client, args);
-                    } else {
-                        node.client.send(path, msg.payload);
-                    }
-                }
-            }
-        });
-    }
-    RED.nodes.registerType("osc out", OSCout);
-}
+    RED.nodes.registerType("osc", OSC);
+};
