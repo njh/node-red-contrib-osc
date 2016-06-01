@@ -73,6 +73,8 @@ module.exports = function(RED) {
                 var packet;
                 if (msg.payload === "") {
                     packet = {address: msg.topic, args: []};
+                } else if (msg.payload === null) {
+                    packet = {address: msg.topic, args: {"type": "N", "value": null}};
                 } else if (typeof msg.payload === 'object' && msg.payload.packets) {
                     // If we receive a bundle
                     packet = msg.payload;
