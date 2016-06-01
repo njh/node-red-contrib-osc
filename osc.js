@@ -80,12 +80,11 @@ module.exports = function(RED) {
                     packet = msg.payload;
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
-                    if (msg.payload === "" || msg.payload === null) {
-                        packet = {address: path, args: {type: 'N', value: null}};
+                    if (msg.payload === "") {
+                        packet = {address: path, args: []};
                     } else {
                         packet = {address: path, args: msg.payload};
                     }
-
                 }
 
                 msg.payload = new Buffer(osc.writePacket(packet));
