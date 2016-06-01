@@ -61,17 +61,13 @@ module.exports = function(RED) {
                 }
             // When we get an Object
             } else {
-                var path;
                 if (node.path === "") {
                     if (msg.topic === "" && !msg.payload.packets) {
                         node.error("OSC Path is empty, please provide a path using msg.topic");
                         return;
-                    } else {
-                        path = msg.topic;
                     }
                 } else {
-                    path = node.path;
-                    msg.topic = path;
+                    msg.topic = node.path;
                 }
 
                 var packet;
@@ -81,9 +77,9 @@ module.exports = function(RED) {
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
                     if (msg.payload === "") {
-                        packet = {address: path, args: []};
+                        packet = {address: msg.topic, args: []};
                     } else {
-                        packet = {address: path, args: msg.payload};
+                        packet = {address: msg.topic, args: msg.payload};
                     }
                 }
 
