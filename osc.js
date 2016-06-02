@@ -61,31 +61,26 @@ module.exports = function(RED) {
                 }
             // When we get an Object
             } else {
-                var path;
                 if (node.path === "") {
-                    if (msg.topic === "" && !msg.payload.packets) {
+                    if (msg.topic === "" && !(typeof msg.payload === 'object' && msg.payload.packets)) {
                         node.error("OSC Path is empty, please provide a path using msg.topic");
                         return;
-                    } else {
-                        path = msg.topic;
                     }
                 } else {
-                    path = node.path;
-                    msg.topic = path;
+                    msg.topic = node.path;
                 }
 
                 var packet;
-                // If we receive a bundle
-                if (msg.payload.packets) {
+                if (msg.payload === "") {
+                    packet = {address: msg.topic, args: []};
+                } else if (msg.payload === null) {
+                    packet = {address: msg.topic, args: {"type": "N", "value": null}};
+                } else if (typeof msg.payload === 'object' && msg.payload.packets) {
+                    // If we receive a bundle
                     packet = msg.payload;
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
-                    if (msg.payload === "" || msg.payload === null) {
-                        packet = {address: path, args: {type: 'N', value: null}};
-                    } else {
-                        packet = {address: path, args: msg.payload};
-                    }
-
+                    packet = {address: msg.topic, args: msg.payload};
                 }
 
                 msg.payload = new Buffer(osc.writePacket(packet));
