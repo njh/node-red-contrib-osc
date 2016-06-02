@@ -18,6 +18,9 @@ module.exports = function(RED) {
     "use strict";
     var osc = require('osc');
     var slip = require('slip');
+    var Long = require('long');
+
+    const LONG_SIZE = 4294967296;
 
     function OSC(n) {
         RED.nodes.createNode(this,n);
@@ -80,7 +83,12 @@ module.exports = function(RED) {
                     packet = msg.payload;
                     packet.timeTag = osc.timeTag(msg.payload.timeTag);
                 } else {
-                    packet = {address: msg.topic, args: msg.payload};
+                    // Send numbers larger than int32 correctly
+                    if (typeof msg.payload === 'number' && msg.payload > LONG_SIZE) {
+                        packet = {address: msg.topic, args: {"type": "h", "value": Long.fromNumber(msg.payload)}};
+                    } else {
+                        packet = {address: msg.topic, args: msg.payload};
+                    }
                 }
 
                 msg.payload = new Buffer(osc.writePacket(packet));
