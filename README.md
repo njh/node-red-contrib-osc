@@ -24,4 +24,4 @@ You will then be able to see the new OSC node type added to Node-RED's pallet on
 Copyright and license
 ---------------------
 
-Copyright 2014 Nicholas Humfrey under [the Apache 2.0 license](LICENSE).
+Copyright 2014-2016 Nicholas Humfrey under [the Apache 2.0 license](LICENSE).
