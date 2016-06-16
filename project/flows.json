@@ -118,7 +118,8 @@
         "y": 120,
         "wires": [
             [
-                "9d5476d8.62ab88"
+                "9d5476d8.62ab88",
+                "1f057284.e0fa8d"
             ]
         ]
     },
@@ -154,25 +155,6 @@
         "wires": []
     },
     {
-        "id": "202481ae.dfdb7e",
-        "type": "inject",
-        "z": "1735cab2.e8ca35",
-        "name": "timestamp with topic",
-        "topic": "/timestamp",
-        "payload": "[1, 2, 3, 4, 5]",
-        "payloadType": "json",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 172,
-        "y": 449,
-        "wires": [
-            [
-                "2f742b6e.d08bd4"
-            ]
-        ]
-    },
-    {
         "id": "790a201.f86f5e",
         "type": "tcp out",
         "z": "1735cab2.e8ca35",
@@ -182,8 +164,8 @@
         "base64": false,
         "end": false,
         "name": "",
-        "x": 587.5,
-        "y": 454,
+        "x": 585.5,
+        "y": 563,
         "wires": []
     },
     {
@@ -191,11 +173,11 @@
         "type": "osc",
         "z": "1735cab2.e8ca35",
         "name": "",
-        "path": "",
+        "path": "/data",
         "slip": true,
         "metadata": false,
-        "x": 371.5,
-        "y": 449,
+        "x": 369.5,
+        "y": 558,
         "wires": [
             [
                 "790a201.f86f5e"
@@ -215,8 +197,8 @@
         "newline": "",
         "topic": "",
         "base64": false,
-        "x": 141.5,
-        "y": 543,
+        "x": 120,
+        "y": 780,
         "wires": [
             [
                 "23fdb661.dc024a"
@@ -230,9 +212,9 @@
         "name": "",
         "path": "",
         "slip": true,
-        "metadata": false,
-        "x": 350,
-        "y": 538,
+        "metadata": true,
+        "x": 270,
+        "y": 780,
         "wires": [
             [
                 "7f9ba86a.806458"
@@ -246,9 +228,9 @@
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "true",
-        "x": 493.5,
-        "y": 540,
+        "complete": "payload",
+        "x": 430,
+        "y": 780,
         "wires": []
     },
     {
@@ -654,25 +636,6 @@
         "wires": []
     },
     {
-        "id": "66936d1d.996c94",
-        "type": "inject",
-        "z": "1fee555b.e011ab",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 220,
-        "y": 260,
-        "wires": [
-            [
-                "c149a28b.3eb66"
-            ]
-        ]
-    },
-    {
         "id": "b5b1fb79.4a4e08",
         "type": "inject",
         "z": "5e5d4cea.a1a2b4",
@@ -718,5 +681,159 @@
         "x": 636.5,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "1f057284.e0fa8d",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 382.5,
+        "y": 248,
+        "wires": []
+    },
+    {
+        "id": "14febbc9.eb0144",
+        "type": "debug",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 370.5,
+        "y": 462,
+        "wires": []
+    },
+    {
+        "id": "73426d8b.8cbd94",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "int32",
+        "topic": "",
+        "payload": "4294967296",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "2f742b6e.d08bd4",
+                "14febbc9.eb0144"
+            ]
+        ]
+    },
+    {
+        "id": "dc57aa09.23a858",
+        "type": "comment",
+        "z": "1735cab2.e8ca35",
+        "name": "Decode test",
+        "info": "",
+        "x": 127.5,
+        "y": 399,
+        "wires": []
+    },
+    {
+        "id": "68d51a88.972ae4",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "intMax",
+        "topic": "",
+        "payload": "9007199254740992",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 540,
+        "wires": [
+            [
+                "2f742b6e.d08bd4",
+                "14febbc9.eb0144"
+            ]
+        ]
+    },
+    {
+        "id": "4228c18e.bdd74",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "string",
+        "topic": "",
+        "payload": "string",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "14febbc9.eb0144",
+                "2f742b6e.d08bd4"
+            ]
+        ]
+    },
+    {
+        "id": "2b575c6f.d4a8a4",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "int48",
+        "topic": "",
+        "payload": "281474976710656",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 500,
+        "wires": [
+            [
+                "14febbc9.eb0144",
+                "2f742b6e.d08bd4"
+            ]
+        ]
+    },
+    {
+        "id": "b50228a8.4afdd8",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "2f742b6e.d08bd4",
+                "14febbc9.eb0144"
+            ]
+        ]
+    },
+    {
+        "id": "46d94c92.b926b4",
+        "type": "inject",
+        "z": "1735cab2.e8ca35",
+        "name": "Mixed Array",
+        "topic": "",
+        "payload": "[1,2,3,\"Hello\"]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "2f742b6e.d08bd4",
+                "14febbc9.eb0144"
+            ]
+        ]
     }
 ]
