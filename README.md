@@ -4,7 +4,7 @@ The *node-red-contrib-osc* module adds support to [Node-RED](http://nodered.org/
 
 This then makes it easy to bridge between other protocols, for example HTTP or MQTT.
 
-![screenshot](https://github.com/njh/node-red-osc/raw/master/screenshot.png)
+![screenshot](https://github.com/njh/node-red-contrib-osc/raw/master/screenshot.png)
 
 ## Warning
 
