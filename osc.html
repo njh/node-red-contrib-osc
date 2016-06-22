@@ -20,11 +20,6 @@
         <input type="text" id="node-input-path" placeholder="OSC Path">
     </div>
     <div class="form-row">
-        <label><i class="fa fa-arrow-right"></i> SLIP</span></label>
-        <input type="checkbox" id="node-input-slip" style="display: inline-block; width: auto; vertical-align: top;">
-        Enable SLIP encapsulation for TCP and Serial streams
-    </div>
-    <div class="form-row">
         <label><i class="fa fa-list"></i> Metadata</span></label>
         <input type="checkbox" id="node-input-metadata" style="display: inline-block; width: auto; vertical-align: top;">
         Check this to add types to incoming messages
@@ -47,8 +42,6 @@
     <code>msg.payload</code> it will convert the data to a <code>Buffer</code> that can be
     sent via tcp, udp, websocket or serial. You can also override <code>msg.topic</code>
     by setting the path in the node&#39;s properties.</p>
-    <p>In the case of TCP and Serial streams, you may need to encode the data using SLIP.
-    To do so, check the SLIP checkbox within the node&#39;s properties.</p>
 </script>
 
 <script type="text/javascript">
@@ -58,7 +51,6 @@
         defaults: {
             name: {value:""},
             path: {value:""},
-            slip: {value: false},
             metadata: {value: false}
         },
         inputs:1,
