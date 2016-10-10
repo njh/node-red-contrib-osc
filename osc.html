@@ -22,7 +22,7 @@
     <div class="form-row">
         <label><i class="fa fa-list"></i> Metadata</span></label>
         <input type="checkbox" id="node-input-metadata" style="display: inline-block; width: auto; vertical-align: top;">
-        Check this to add types to incoming messages
+        Include metadata
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -35,13 +35,27 @@
     <p>Decode and encode messages using the Open Sound Control (OSC) protocol.</p>
     <p>The OSC node is transport independant meaning you will need to use it with
     Node-RED&#39;s built-in input and output objects like udp, tcp, websocket or serial.</p>
+
+    <h1>Receiving</h1>
     <p>If the node receives a <code>Buffer</code> as <code>msg.payload</code> it will convert
     it and place the OSC address in <code>msg.topic</code> and the received arguments
-    in <code>msg.payload.</code> The raw message can be found in <code>msg.raw.</code></p>
+    in <code>msg.payload.</code></p>
+    <p>When "Include metadata" checkbox is checked, the OSC node will send an object
+    with the type of the value along the value:</p>
+    <pre>
+    {
+        "type": "f",
+        "value": 33.4
+    }
+    </pre>
+
+    <h1>Sending</h1>
     <p>If the node receives a valid OSC path as <code>msg.topic</code> and data as
     <code>msg.payload</code> it will convert the data to a <code>Buffer</code> that can be
     sent via tcp, udp, websocket or serial. You can also override <code>msg.topic</code>
     by setting the path in the node&#39;s properties.</p>
+    <p>To send or receive via tcp or serial you will need the
+    <a href="http://flows.nodered.org/node/node-red-contrib-slip" target='blank'>node-red-contrib-slip</a> object.
 </script>
 
 <script type="text/javascript">
@@ -62,3 +76,4 @@
         }
     });
 </script>
+
