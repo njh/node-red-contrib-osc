@@ -16,7 +16,7 @@
         "OSC", "Open Sound Control", "node-red"
     ],
     "dependencies": {
-        "osc": "2.x"
+        "osc": "^2.2.3"
     },
     "node-red": {
         "nodes": {
