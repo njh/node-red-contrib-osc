@@ -59,13 +59,13 @@ module.exports = function(RED) {
                 } else if (typeof msg.payload === 'object' && msg.payload.packets) {
                     // If we receive a bundle
                     packet = msg.payload;
-		    // For very large timeTags treat them as absolute timestamps
-		    // rather than offsets from now()
-		    if (msg.payload.timeTag > 10000000) {
-			packet.timeTag = osc.timeTag(0, msg.payload.timeTag);
-		    } else {
-			packet.timeTag = osc.timeTag(msg.payload.timeTag);
-		    }
+                    // For very large timeTags treat them as absolute timestamps
+                    // rather than offsets from now()
+                    if (msg.payload.timeTag > 10000000) {
+                        packet.timeTag = osc.timeTag(0, msg.payload.timeTag);
+                    } else {
+                        packet.timeTag = osc.timeTag(msg.payload.timeTag);
+                    }
                 } else {
                     packet = {address: msg.topic, args: msg.payload};
                 }
