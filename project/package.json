@@ -5,14 +5,21 @@
   "license": "Apache-2.0",
   "dependencies": {
     "node-red": "0.13.4",
-    "node-red-contrib-osc": "../"
+    "node-red-contrib-osc": "../",
+    "snyk": "^1.108.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/njh/node-red-contrib-osc.git"
   },
-  "keywords": ["node-red", "template"],
+  "keywords": [
+    "node-red",
+    "template"
+  ],
   "scripts": {
-    "start": "node start.js"
-  }
+    "start": "node start.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
