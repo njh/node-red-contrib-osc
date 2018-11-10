@@ -4,7 +4,7 @@
   "description": "A Node-RED test project for node-red-contrib-osc",
   "license": "Apache-2.0",
   "dependencies": {
-    "node-red": "0.13.4",
+    "node-red": ">=0.18.6",
     "node-red-contrib-osc": "../"
   },
   "repository": {
