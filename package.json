@@ -24,7 +24,7 @@
         "node-red"
     ],
     "dependencies": {
-        "osc": "^2.2.3"
+        "osc": "2.2.3"
     },
     "node-red": {
         "nodes": {
