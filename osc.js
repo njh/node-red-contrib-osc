@@ -44,7 +44,7 @@ module.exports = function(RED) {
             } else {
                 if (node.path === "") {
                     if (msg.topic === "" && !(typeof msg.payload === 'object' && msg.payload.packets)) {
-                        node.error("OSC Path is empty, please provide a path using msg.topic");
+                        //node.error("OSC Path is empty, please provide a path using msg.topic");
                         return;
                     }
                 } else {
