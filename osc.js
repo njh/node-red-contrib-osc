@@ -36,7 +36,7 @@ module.exports = function(RED) {
             return _msg;
         };
 
-        node.on("input", function(msg) {
+        node.on("input", function(msg, send, done) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload)) {
                 msg = node.decode(msg);
@@ -44,7 +44,7 @@ module.exports = function(RED) {
             } else {
                 if (node.path === "") {
                     if (msg.topic === "" && !(typeof msg.payload === 'object' && msg.payload.packets)) {
-                        //node.error("OSC Path is empty, please provide a path using msg.topic");
+                        done("OSC Path is empty, please provide a path using msg.topic");
                         return;
                     }
                 } else {
