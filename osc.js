@@ -39,6 +39,8 @@ module.exports = function(RED) {
         node.on("input", function(msg, send, done) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload)) {
+                // skip length bytes on tcp message
+                msg.payload.slice(4, msg.payload.length);
                 msg = node.decode(msg);
             // When we get an Object
             } else {
