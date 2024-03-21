@@ -23,8 +23,13 @@ module.exports = function(RED) {
         var node = this;
         node.path = n.path;
         node.metadata = n.metadata;
+        node.tcp = n.tcp;
 
         node.decode = function(_msg) {
+            if (node.tcp) {
+                // skip length bytes on tcp message
+                _msg.payload.slice(4, _msg.payload.length);
+            }
             _msg.raw = osc.readPacket(_msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
             if (_msg.raw.packets) {
                 _msg.topic = "bundle";
@@ -39,8 +44,6 @@ module.exports = function(RED) {
         node.on("input", function(msg, send, done) {
             // When we get a Buffer
             if (Buffer.isBuffer(msg.payload)) {
-                // skip length bytes on tcp message
-                msg.payload.slice(4, msg.payload.length);
                 msg = node.decode(msg);
             // When we get an Object
             } else {
