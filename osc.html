@@ -25,11 +25,6 @@
         Include metadata
     </div>
     <div class="form-row">
-        <label>TCP</label>
-        <input type="checkbox" id="node-input-tcp" style="display: inline-block; width: auto; vertical-align: top;">
-        Process received packets from TCP
-    </div>
-    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
@@ -70,8 +65,7 @@
         defaults: {
             name: {value:""},
             path: {value:""},
-            metadata: {value: false},
-            tcp: {value: false}
+            metadata: {value: false}
         },
         inputs:1,
         outputs:1,

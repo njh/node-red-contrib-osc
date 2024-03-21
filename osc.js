@@ -23,10 +23,9 @@ module.exports = function(RED) {
         var node = this;
         node.path = n.path;
         node.metadata = n.metadata;
-        node.tcp = n.tcp;
 
         node.decode = function(_msg) {
-            if (node.tcp) {
+            if (_msg._session.type.includes("tcp")) {
                 // skip length bytes on tcp message
                 _msg.payload = _msg.payload.slice(4, _msg.payload.length);
             }
