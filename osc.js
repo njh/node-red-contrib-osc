@@ -28,7 +28,7 @@ module.exports = function(RED) {
         node.decode = function(_msg) {
             if (node.tcp) {
                 // skip length bytes on tcp message
-                _msg.payload.slice(4, _msg.payload.length);
+                _msg.payload = _msg.payload.slice(4, _msg.payload.length);
             }
             _msg.raw = osc.readPacket(_msg.payload, {"metadata": node.metadata, "unpackSingleArgs": true});
             if (_msg.raw.packets) {
